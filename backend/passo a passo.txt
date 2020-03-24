@@ -1,0 +1,35 @@
+--rodar o backend
+yarn dev
+
+--criar o package.json
+yarn init -y
+
+--instalar express
+yarn add express
+
+--instalar nodemon para escutar alteracoes
+yarn add nodemon -D
+
+--criar chave no package.json para nodemon
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+
+--depois de abrir o docker rodar no terminal node o comando
+docker start mongodb
+
+--url de acesso ao mongo
+http://localhost:27017/
+
+
+--instalar o mongose orm para mongo
+yarn add mongoose
+
+--instalar o axios para consumir api
+yarn add axios
+
+-- instalar o cors
+yarn add cors
+
+--instalar socket.io
+yarn add socket.io

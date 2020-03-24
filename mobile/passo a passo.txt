@@ -1,0 +1,44 @@
+--rodar mobile com expo
+yarn start
+
+--instala expo
+yarn global add expo-cli
+
+--cria o projeto com expo
+expo init mobile
+
+--inicia o projeto
+yarn start
+
+--baixar no celular o app expo
+--scanear o qrcode para ver o app rodar
+
+--url da documentacao
+https://reactnavigation.org/docs/en/getting-started.html
+
+--instalar o react navigation
+yarn add react-navigation
+
+--instalar dependencias do expo
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context
+
+--instalar react-navigation-stack para navegacao por pilhas
+yarn add react-navigation-stack
+
+--instalar react-native-community/masked-view
+yarn add react-navigation-stack @react-native-community/masked-view
+
+--instalar acesso a maps
+expo install react-native-maps
+
+--instalar location
+expo install expo-location
+
+--instalar o webview
+expo install react-native-webview
+
+--instalar o axios
+yarn add axios
+
+--instalar socket.io client
+yarn add socket.io-client
