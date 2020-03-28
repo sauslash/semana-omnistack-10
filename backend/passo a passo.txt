@@ -33,3 +33,6 @@ yarn add cors
 
 --instalar socket.io
 yarn add socket.io
+
+--instalar dotenv para variaveis de ambiente (fazer o require no arquivo que for usar require("dotenv").config();)
+yarn add dotenv

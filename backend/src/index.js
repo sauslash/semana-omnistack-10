@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require('express');
 const moongose = require('mongoose');
 const cors = require('cors');
@@ -10,7 +12,7 @@ const app = express();
 const server = http.Server(app);
 setupWebsocket(server);
 
-moongose.connect('mongodb://localhost:27017/semana10', {
+moongose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 });
@@ -20,4 +22,4 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-server.listen(3333);
+server.listen(process.env.PORT || 3333);
