@@ -42,3 +42,16 @@ yarn add axios
 
 --instalar socket.io client
 yarn add socket.io-client
+
+
+--para gerar o app bundle do android
+--ajuste o app.json
+--abra uma janela do node como adm, garanta que ja tenha uma conta no expo.io
+--execute expo start em uma guia para rodar o expo
+--abra outra janela do node como adm e execute 
+    expo build:android -t app-bundle
+--caso não esteja logado no expo sera solicitado
+--na pergunta se quer permitir que ele gere a chave, sendo a primeira vez diga que sim (opção 1) e confirme
+--so aguardar
+--ao terminar faça backup da chave gerada pelo expo para o futuro e guarde
+expo fetch:android:keystore
