@@ -44,12 +44,16 @@ yarn add axios
 yarn add socket.io-client
 
 
+--quando você usa maps do react native ele usa o maps do google, assim você precisa gerar um api do maps e configura
+-- link para aprender a fazer o setup https://docs.expo.io/versions/latest/sdk/map-view/
 --para gerar o app bundle do android
 --ajuste o app.json
 --abra uma janela do node como adm, garanta que ja tenha uma conta no expo.io
 --execute expo start em uma guia para rodar o expo
 --abra outra janela do node como adm e execute 
     expo build:android -t app-bundle
+--(opcional) para gerar o apk e testar no celular antes 
+    expo build:android -t apk
 --caso não esteja logado no expo sera solicitado
 --na pergunta se quer permitir que ele gere a chave, sendo a primeira vez diga que sim (opção 1) e confirme
 --so aguardar
