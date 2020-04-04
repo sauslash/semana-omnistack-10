@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "DevRadar",
+    "name": "Dev Radar",
     "slug": "devradar",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
       "android"
     ],
-    "version": "3.0.0",
+    "version": "5.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -25,13 +25,18 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "br.com.solucoessa.devradar",
-      "versionCode": 3,
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDbR7I_-00Rn1n3aCzNHPUqUEIbvsnWfvU"
+          "apiKey": ""
         }
-      }
+      },
+      "package": "br.com.solucoessa.devradar",
+      "adaptiveIcon": {
+        "backgroundColor": "#7D40E7",
+        "foregroundImage": "./assets/icon.png"
+      },
+      "versionCode": 5
+      
     }
   }
 }
