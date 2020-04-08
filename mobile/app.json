@@ -35,8 +35,7 @@
         "backgroundColor": "#7D40E7",
         "foregroundImage": "./assets/icon.png"
       },
-      "versionCode": 5
-      
+      "versionCode": 5      
     }
   }
 }
