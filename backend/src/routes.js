@@ -1,8 +1,15 @@
 const { Router } = require('express');
 const DevController = require('./controllers/DevController');
 const SearchController = require('./controllers/SearchController');
+const AuthController = require('./controllers/AuthController');
+const AuthMiddleware = require('./middleware/auth');
 
 const routes = Router();
+
+routes.get('/authenticate', AuthController.index);
+routes.post('/register', AuthController.store);
+
+routes.use(AuthMiddleware);
 
 //Rotas padroes sugeridas
 //index, show, store, update, destroy
