@@ -12,7 +12,7 @@ module.exports = {
 
     async store(request, response) {
 
-        const { github_username, techs, latitude, longitude } = request.body;
+        const { github_username, techs, latitude, longitude, userId } = request.body;
 
         let dev = await Dev.findOne({ github_username });
 
@@ -37,7 +37,8 @@ module.exports = {
                 avatar_url,
                 bio,
                 techs: techsArray,
-                location
+                location,
+                userId
             });
 
             const sendSocketMessageTo = findConnections(

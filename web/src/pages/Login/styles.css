@@ -1,0 +1,121 @@
+.logo-container {
+    width: 100%;
+    max-width: 1120px;
+    height: 100vh;
+    margin: 0 auto;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo-container section.form {
+    width: 100%;
+    max-width: 350px;
+    padding: 0 3rem;
+  }
+  
+  .logo-container section.form form {
+    margin-top: 5rem;
+  }
+  
+  .logo-container section.form form h1 {
+    font-size: 2.0rem;
+    margin-bottom: 3.2rem;
+    text-align: center;
+  }
+  
+  .logo-container .logo {
+    width: 100%;
+  }
+  
+  .logo-container .heroes {
+    width: 100%;
+    max-width: 630px;
+  }
+  
+  @media (max-width: 906px) {
+    .logo-container section.form form {
+      margin-top: 5rem;
+    }
+  
+    .logo-container .logo {
+      width: 58%;
+    }
+  
+    .logo-container .heroes {
+      width: 58%;
+    }
+
+    .logo-container section.form form h1 {
+        font-size: 1.8rem;
+        margin-bottom: 3.2rem;
+    }
+  }
+  
+  @media (max-width: 750px) {
+    .logo-container {
+        width: 100%;
+        max-width: 1120px;
+        height: 80vh;
+        margin: 0 auto;
+      
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+    .logo-container section.form form {
+      margin-top: 3rem;
+    }
+  
+    .logo-container .logo {
+      width: 50%;
+    }
+  
+    .logo-container .heroes {
+      width: 50%;
+    }
+
+    .logo-container section.form form h1 {
+        font-size: 1.6rem;
+        margin-bottom: 3.2rem;
+    }
+  }
+  
+  @media (max-width: 620px) {
+
+    .logo-container {
+        width: 100%;
+        max-width: 1120px;
+        height: 80vh;
+        margin: 0 auto;
+      
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+ 
+    .logo-container {
+      justify-content: center;
+    }
+  
+    .logo-container section.form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .logo-container .logo {
+      width: 100%;
+    }
+  
+    .logo-container .heroes {
+      display: none;
+    }
+
+    .logo-container section.form form h1 {
+        font-size: 1.5rem;
+        margin-bottom: 3.2rem;
+    }
+  }

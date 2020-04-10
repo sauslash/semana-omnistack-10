@@ -6,8 +6,11 @@ const AuthMiddleware = require('./app/middleware/auth');
 
 const routes = Router();
 
-routes.get('/authenticate', AuthController.index);
+routes.post('/authenticate', AuthController.index);
 routes.post('/register', AuthController.store);
+routes.get('/getById/:id', AuthController.getById);
+routes.get('/activeUser/:tokenConfirmRegister', AuthController.active);
+routes.put('/activeUser/:tokenConfirmRegister', AuthController.update);
 
 routes.use(AuthMiddleware);
 

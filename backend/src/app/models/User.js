@@ -21,15 +21,24 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,        
     },
+    tokenConfirmRegister: {
+        type: String,
+        required: false,        
+    },
+    confirmRegisterAt: {
+        type: Date,     
+    },
+    active: {
+        type: String,        
+    },
 });
 
 UserSchema.pre('save', async function(next) {
     const hash = await bcrypt.hash(this.password, 10);
     this.password = hash;
+    this.active = 'N';
 
     next();
 });
-
-const User = mongoose.model('User', UserSchema);
 
 module.exports = mongoose.model('User', UserSchema);
