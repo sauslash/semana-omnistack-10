@@ -6,7 +6,7 @@ import axios from '../../services/api';
 
 import './styles.css';
 
-import logoImg from '../../assets/logo.svg';
+import logoImg from '../../assets/logo.png';
 
 function Register() {
 
@@ -93,9 +93,9 @@ function Register() {
                     <img className="logo" src={logoImg} alt="Dev Radar" />
 
                     <h1>Cadastro</h1>
-                    <p>Faça seu cadastro, entre na plataforma e ajude pessoas a encontrarem os casos de sua ONG</p>
+                    <p>Faça seu cadastro, aqui você pode encontrar ou divulgar vagas de acordo com o seu perfil.</p>
 
-                    <Link className="back-link" to="/"><FiArrowLeft size={26} color="#e02041" /> Já tenho cadastro</Link>
+                    <Link className="back-link" to="/"><FiArrowLeft size={26} color="#7D40E7" /> Já tenho cadastro</Link>
                 </section>
 
                 <form onSubmit={handleRegisterUser}>

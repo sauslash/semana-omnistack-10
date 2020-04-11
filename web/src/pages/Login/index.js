@@ -6,8 +6,8 @@ import axios from '../../services/api';
 
 import './styles.css';
 
-import logoImg from '../../assets/logo.svg';
-import heroesimg from '../../assets/heroes.png';
+import logoImg from '../../assets/logo.png';
+import heroesimg from '../../assets/devradar.png';
 
 function Login() {
 
@@ -36,9 +36,9 @@ function Login() {
                 const response = await axios.post('authenticate', data);
                 const { id, name } = response.data.user;
 
-                localStorage.setItem('tokenAuth', response.data.token);
-                localStorage.setItem('userId', id);
-                localStorage.setItem('name', name);
+                sessionStorage.setItem('tokenAuth', response.data.token);
+                sessionStorage.setItem('userId', id);
+                sessionStorage.setItem('name', name);
 
                 history.push('/profile');
             }
@@ -76,7 +76,7 @@ function Login() {
                     <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
                     <button className="button" type="submit">Entrar</button>
 
-                    <Link className="back-link" to="/register"><FiLogIn size={26} color="#e02041" /> Não tenho cadastro</Link>
+                    <Link className="back-link" to="/register"><FiLogIn size={26} color="#7D40E7" /> Não tenho cadastro</Link>
                 </form>
             </section>
 

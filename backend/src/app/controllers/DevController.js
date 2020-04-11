@@ -12,7 +12,7 @@ module.exports = {
 
     async getDevByGitHubUserName(request, response) {
 
-        const { github_username } = request.params;
+        const { github_username } = request.params;        
 		const dev = await Dev.findOne({ github_username });	
 
 		if (!dev) {

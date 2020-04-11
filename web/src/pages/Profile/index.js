@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FiArrowLeft } from 'react-icons/fi';
 import swal from 'sweetalert';
 import api from '../../services/api';
 
 import './styles.css';
-import logoImg from '../../assets/logo.svg';
+import logoImg from '../../assets/logo.png';
 
 function ActiveUser() {
 
@@ -22,8 +20,8 @@ function ActiveUser() {
     useEffect(() => {
 
         async function loadUser() {
-            const tokenAuth = localStorage.getItem('tokenAuth');
-            const userId = localStorage.getItem('userId');
+            const tokenAuth = sessionStorage.getItem('tokenAuth');
+            const userId = sessionStorage.getItem('userId');
 
             const response = await api.get(`getById/${userId}`, {
                 headers: {
@@ -33,26 +31,29 @@ function ActiveUser() {
 
             const { user } = response.data;
 
-            setUserId(user._id);            
+            setUserId(user._id);
             setEmail(user.email);
             setGitHubUserName(user.github_username);
 
+            let responseDev;
 
-            const responseDev = await api.get(`getDevByGitHubUserName/${user.github_username}`, {
-                headers: {
-                    Authorization: `Bearer ${tokenAuth}`
-                }
-            });
+            try {
+                responseDev = await api.get(`getDevByGitHubUserName/${user.github_username}`, {
+                    headers: {
+                        Authorization: `Bearer ${tokenAuth}`
+                    }
+                });
 
-            const {dev} = responseDev.data;
-                       
-            if(responseDev){
+                const { dev } = responseDev.data;
+
                 setTechs(dev.techs.join(', '));
-                setDev(dev); 
-                setName(dev.name);               
+                setDev(dev);
+                setName(dev.name);
             }
-            else
+            catch (err) {
+                responseDev = null;
                 setName(user.name);
+            }
 
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -77,7 +78,7 @@ function ActiveUser() {
         e.preventDefault();
 
         try {
-            const tokenAuth = localStorage.getItem('tokenAuth');
+            const tokenAuth = sessionStorage.getItem('tokenAuth');
 
             const data = {
                 name,
@@ -86,7 +87,7 @@ function ActiveUser() {
                 latitude,
                 longitude,
                 userId
-            };            
+            };
 
             if (!dev) {
 
@@ -133,9 +134,8 @@ function ActiveUser() {
                     <img className="logo" src={logoImg} alt="Dev Radar" />
 
                     <h1>Cadastro</h1>
-                    <p>Faça seu cadastro, entre na plataforma e ajude pessoas a encontrarem os casos de sua ONG</p>
+                    <p>Complete seu cadastro para que possa ser localizado por contratantes.</p>
 
-                    <Link className="back-link" to="/"><FiArrowLeft size={26} color="#e02041" /> Já tenho cadastro</Link>
                 </section>
 
                 <form onSubmit={handleAddDev}>
