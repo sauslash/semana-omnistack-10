@@ -7,6 +7,6 @@ module.exports = {
 		pass: process.env.MAIL_PASS,
 	},
 	default: {
-		from: 'SolucoesSA <estudar@gmail.com>',
+		from: 'estudar@gmail.com',
 	},
 };
