@@ -15,41 +15,75 @@ function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [profile, setProfile] = useState('Dev');
+    const [github_username, setGitHubUserName] = useState('');
+    const [companyName, setCompanyName] = useState('');
+
+    function validate() {   
+        if(profile === "Dev")
+        {     
+            if (name !== "" && email !== "" && password !== "" && github_username !== "")
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            if (name !== "" && email !== "" && password !== "" && companyName !== "")
+                return true;
+            else
+                return false;
+        }
+
+    }
 
     async function handleRegisterUser(e) {
         e.preventDefault();
 
-        const data = {
-            name,
-            email,
-            password
+        if (validate()) {
+            const data = {
+                name,
+                email,
+                password,
+                profile,
+                github_username,
+                companyName
+            }
+
+            try {
+                await axios.post('register', data);
+
+                swal({
+                    title: `Cadastro realizado com sucesso`,
+                    text: "Verifique seu e-mail para ativa-lo!",
+                    icon: "success",
+                    button: true,
+                    dangerMode: true,
+                });
+
+                history.push('/');
+            }
+            catch (err) {
+                swal({
+                    title: "Erro ao cadastrar!",
+                    text: "Tente novamente.",
+                    icon: "error",
+                    button: true,
+                    dangerMode: true,
+                });
+            }
         }
-
-        try
-        {
-            await axios.post('register', data);            
-
-            swal({
-                title: `Cadastro realizado com sucesso`,
-                text: "Verifique seu e-mail para ativa-lo!",
-                icon: "success",
-                button: true,
-                dangerMode: true,
-            });
-
-            history.push('/');
-        }
-        catch(err)
-        {            
+        else {
             swal({
                 title: "Erro ao cadastrar!",
-                text: "Tente novamente.",
+                text: "Todos os campos são obrigatórios.",
                 icon: "error",
                 button: true,
                 dangerMode: true,
             });
         }
-        
+
+
     }
 
     return (
@@ -63,9 +97,13 @@ function Register() {
 
                     <Link className="back-link" to="/"><FiArrowLeft size={26} color="#e02041" /> Já tenho cadastro</Link>
                 </section>
-                
+
                 <form onSubmit={handleRegisterUser}>
-                    <input 
+                    <select id="profile" name="profile" onChange={e => setProfile(e.target.value)}>                        
+                        <option value="Dev">Dev</option>
+                        <option value="Recruiter">Recruiter</option>
+                    </select>
+                    <input
                         placeholder="Nome"
                         value={name}
                         onChange={e => setName(e.target.value)}
@@ -78,9 +116,21 @@ function Register() {
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />
-
+                    {profile === "Dev" ? (
+                        <input
+                            placeholder="GitHub UserName"
+                            value={github_username}
+                            onChange={e => setGitHubUserName(e.target.value)}
+                        />
+                    ) : (
+                        <input
+                            placeholder="Nome da empresa"
+                            value={companyName}
+                            onChange={e => setCompanyName(e.target.value)}
+                        />
+                    )}
                     <button className="button" type="submit">Cadastrar</button>
-                </form>                
+                </form>
             </div>
         </div>
     );

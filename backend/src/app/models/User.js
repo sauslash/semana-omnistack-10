@@ -31,6 +31,12 @@ const UserSchema = new mongoose.Schema({
     active: {
         type: String,        
     },
+    profile: {
+        type: String,
+        required: true,
+    },
+    github_username: String,
+    companyName: String,
 });
 
 UserSchema.pre('save', async function(next) {

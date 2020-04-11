@@ -13,39 +13,58 @@ function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const history = useHistory();    
+    const history = useHistory();
+
+    function validate() {
+
+        if (email !== "" && password !== "")
+            return true;
+        else
+            return false;
+
+    }
 
     async function handleLogin(e) {
         e.preventDefault();
 
-        try {
-            const data = {
-                email,
-                password
+        if (validate()) {
+            try {
+                const data = {
+                    email,
+                    password
+                }
+                const response = await axios.post('authenticate', data);
+                const { id, name } = response.data.user;
+
+                localStorage.setItem('tokenAuth', response.data.token);
+                localStorage.setItem('userId', id);
+                localStorage.setItem('name', name);
+
+                history.push('/profile');
             }
-            const response = await axios.post('authenticate', data);
-            const { id, name } = response.data.user;
-
-            localStorage.setItem('tokenAuth', response.data.token);
-            localStorage.setItem('userId', id);
-            localStorage.setItem('name', name);
-
-            history.push('/profile');
+            catch (err) {
+                swal({
+                    title: "Falha ao fazer o login!",
+                    text: "Tente novamente.",
+                    icon: "error",
+                    button: true,
+                    dangerMode: true,
+                });
+            }
         }
-        catch (err) {
+        else {
             swal({
-                title: "Falha ao fazer o login!",
-                text: "Tente novamente.",
+                title: "Erro ao logar!",
+                text: "Todos os campos são obrigatórios.",
                 icon: "error",
                 button: true,
                 dangerMode: true,
             });
         }
-
     }
 
     return (
-        
+
         <div className="logo-container">
             <section className="form">
                 <img className="logo" src={logoImg} alt="Dev Radar" />
@@ -55,7 +74,7 @@ function Login() {
 
                     <input type="text" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
                     <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
-                    <button className="button" type="submit" disabled={!email}>Entrar</button>
+                    <button className="button" type="submit">Entrar</button>
 
                     <Link className="back-link" to="/register"><FiLogIn size={26} color="#e02041" /> Não tenho cadastro</Link>
                 </form>

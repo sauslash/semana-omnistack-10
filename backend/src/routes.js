@@ -8,7 +8,6 @@ const routes = Router();
 
 routes.post('/authenticate', AuthController.index);
 routes.post('/register', AuthController.store);
-routes.get('/getById/:id', AuthController.getById);
 routes.get('/activeUser/:tokenConfirmRegister', AuthController.active);
 routes.put('/activeUser/:tokenConfirmRegister', AuthController.update);
 
@@ -16,9 +15,12 @@ routes.use(AuthMiddleware);
 
 //Rotas padroes sugeridas
 //index, show, store, update, destroy
+routes.get('/getById/:id', AuthController.getById);
 
 routes.get('/devs', DevController.index);
 routes.post('/devs', DevController.store);
+routes.get('/getDevByGitHubUserName/:github_username', DevController.getDevByGitHubUserName);
+routes.put('/devs/:userId', DevController.update);
 
 routes.get('/search', SearchController.index);
 

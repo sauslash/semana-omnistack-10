@@ -10,6 +10,19 @@ module.exports = {
         return response.json(devs);
     },
 
+    async getDevByGitHubUserName(request, response) {
+
+        const { github_username } = request.params;
+		const dev = await Dev.findOne({ github_username });	
+
+		if (!dev) {
+			return response.status(400).json({ error: 'User not found.' });
+		}
+
+        return response.send({ dev });
+
+    },
+    
     async store(request, response) {
 
         const { github_username, techs, latitude, longitude, userId } = request.body;
@@ -53,5 +66,25 @@ module.exports = {
         else
             return response.json("");
         
-    }
+    },
+
+    async update(request, response) {
+        
+        const { userId } = request.params;
+        const { name, techs } = request.body;
+
+		let dev = await Dev.findOne({ userId });		
+
+		if (!dev) {
+			return response.status(400).json({ error: 'Dev not found.' });
+        }
+        
+        const techsArray = parseStringAsArray(techs);
+
+		const filter = { userId: userId };
+        const update = { name, techs: techsArray };        
+        await Dev.findOneAndUpdate(filter, update);
+        
+        return response.status(204).send();
+    },
 };

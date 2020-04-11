@@ -16,20 +16,44 @@ function ActiveUser() {
     const [longitude, setLogintude] = useState('');
     const [github_username, setGitHubUserName] = useState('');
     const [techs, setTechs] = useState('');
+    const [dev, setDev] = useState('');
 
     //o parametro array no final indica que vai executar apenas uma vez
     useEffect(() => {
 
         async function loadUser() {
+            const tokenAuth = localStorage.getItem('tokenAuth');
             const userId = localStorage.getItem('userId');
-            const response = await api.get(`getById/${userId}`);
 
-            const { user } = response.data;            
-            
-            setUserId(user._id);
-            setName(user.name);
+            const response = await api.get(`getById/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${tokenAuth}`
+                }
+            });
+
+            const { user } = response.data;
+
+            setUserId(user._id);            
             setEmail(user.email);
-                        
+            setGitHubUserName(user.github_username);
+
+
+            const responseDev = await api.get(`getDevByGitHubUserName/${user.github_username}`, {
+                headers: {
+                    Authorization: `Bearer ${tokenAuth}`
+                }
+            });
+
+            const {dev} = responseDev.data;
+                       
+            if(responseDev){
+                setTechs(dev.techs.join(', '));
+                setDev(dev); 
+                setName(dev.name);               
+            }
+            else
+                setName(user.name);
+
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     const { latitude, longitude } = position.coords;
@@ -47,29 +71,39 @@ function ActiveUser() {
 
         loadUser();
 
-    }, []);
+    }, [github_username]);
 
     async function handleAddDev(e) {
         e.preventDefault();
 
-        const tokenAuth = localStorage.getItem('tokenAuth');
+        try {
+            const tokenAuth = localStorage.getItem('tokenAuth');
 
-        const data = {
-            name,
-            github_username,            
-            techs,            
-            latitude,
-            longitude,
-            userId
-        };
+            const data = {
+                name,
+                github_username,
+                techs,
+                latitude,
+                longitude,
+                userId
+            };            
 
-        const response = await api.post('/devs', data, {
-            headers: {
-                Authorization: `Bearer ${tokenAuth}`
+            if (!dev) {
+
+                await api.post('/devs', data, {
+                    headers: {
+                        Authorization: `Bearer ${tokenAuth}`
+                    }
+                });
+
             }
-        });
-
-        if (response.data !== "") {
+            else {
+                await api.put(`/devs/${userId}`, data, {
+                    headers: {
+                        Authorization: `Bearer ${tokenAuth}`
+                    }
+                });
+            }
 
             swal({
                 title: `Perfil atualizado com sucesso`,
@@ -79,6 +113,16 @@ function ActiveUser() {
                 dangerMode: true,
             });
         }
+        catch (err) {
+            swal({
+                title: "Falha ao atualizar o cadastro!",
+                text: "Tente novamente.",
+                icon: "error",
+                button: true,
+                dangerMode: true,
+            });
+        }
+
 
     }
 
@@ -100,11 +144,11 @@ function ActiveUser() {
                         value={name}
                         onChange={e => setName(e.target.value)}
                     />
-                    <input placeholder="E-mail"
+                    <input placeholder="E-mail" readOnly
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
-                    <input
+                    <input readOnly
                         placeholder="GitHub UserName"
                         value={github_username}
                         onChange={e => setGitHubUserName(e.target.value)}
