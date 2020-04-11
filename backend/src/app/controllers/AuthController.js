@@ -10,7 +10,7 @@ module.exports = {
 	async index(request, response) {
 		const { email, password } = request.body;
 
-		const user = await User.findOne({ email }).select('+password');
+		const user = await User.findOne({ email, active: 'S' }).select('+password');
 
 		if (!user) {
 			return response.status(400).json({ error: 'User not found.' });
