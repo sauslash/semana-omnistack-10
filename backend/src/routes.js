@@ -10,6 +10,7 @@ routes.post('/authenticate', AuthController.index);
 routes.post('/register', AuthController.store);
 routes.get('/activeUser/:tokenConfirmRegister', AuthController.active);
 routes.put('/activeUser/:tokenConfirmRegister', AuthController.update);
+routes.get('/search', SearchController.index);
 
 routes.use(AuthMiddleware);
 
@@ -21,8 +22,6 @@ routes.get('/devs', DevController.index);
 routes.post('/devs', DevController.store);
 routes.get('/getDevByGitHubUserName/:github_username', DevController.getDevByGitHubUserName);
 routes.put('/devs/:userId', DevController.update);
-
-routes.get('/search', SearchController.index);
 
 module.exports = routes;
 

@@ -14,7 +14,6 @@ function Routes() {
                 <Route path="/register" component={Register} />
                 <Route path="/active/:tokenConfirmRegister" component={ActiveUser} />
                 <Route path="/profile" component={Profile} />
-                {/* <Route path="/incident/edit/:id" exact component={EditIncident} /> */}
             </Switch>
         </BrowserRouter>
     );
